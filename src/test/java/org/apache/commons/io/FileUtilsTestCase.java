@@ -840,10 +840,10 @@ public class FileUtilsTestCase {
         assertEquals(TEST_DIRECTORY_SIZE, FileUtils.sizeOfDirectory(file), "Unexpected directory size");
     }
 
-    private void createCircularSymLink(final File file) throws IOException {
+    private void createCircularSymLink(final File file) throws IOException, InterruptedException {
         if (!FilenameUtils.isSystemWindows()) {
             Runtime.getRuntime()
-                    .exec("ln -s " + file + "/.. " + file + "/cycle");
+                    .exec("ln -s " + file + "/.. " + file + "/cycle").waitFor();
         } else {
             try {
                 Runtime.getRuntime()
